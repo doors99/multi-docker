@@ -1,12 +1,6 @@
 sudo: required
 language: generic 
-region: "eu-west-2"
-app: "multi-docker"
-env: "MultiDocker-env"
-bucket_name: "arn:aws:s3:::elasticbeanstalk-eu-west-2-442571048432"
-bucket_path: docker-multi
-access_key_id: $AWS_ACCESS_KEY
-secret_access_key: $AWS_SECRET_KEY
+
 services:
     - docker
 
@@ -29,3 +23,15 @@ after_success:
     - docker push doors9/multi-server
     - docker push doors9/multi-worker
 
+deploy:
+    edge: true
+    provider: elasticbeanstalk
+    region: "eu-west-2"
+    app: "multi-docker"
+    env: "MultiDocker-env"
+    bucket_name: "elasticbeanstalk-eu-west-2-442571048432"
+    bucket_path: docker-multi
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    on:
+        branch: master
