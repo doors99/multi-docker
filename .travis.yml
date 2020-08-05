@@ -1,5 +1,12 @@
 sudo: required
 language: generic 
+region: "eu-west-2"
+app: "multi-docker"
+env: "MultiDocker-env"
+bucket_name: "arn:aws:s3:::elasticbeanstalk-eu-west-2-442571048432"
+bucket_path: docker-multi
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_KEY
 services:
     - docker
 
@@ -10,10 +17,10 @@ script:
     - docker run -e CI=true doors9/react-test npm test
 
 after_success:
-    - docker build -t doors9/multi-client -f ./client
-    - docker build -t doors9/multi-nginx -f ./nginx
-    - docker build -t doors9/multi-server -f ./server
-    - docker build -t doors9/multi-worker -f ./worker
+    - docker build -t doors9/multi-client ./client
+    - docker build -t doors9/multi-nginx ./nginx
+    - docker build -t doors9/multi-server ./server
+    - docker build -t doors9/multi-worker ./worker
   #login to docker hub
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #take images and upload to docker hub
@@ -21,4 +28,4 @@ after_success:
     - docker push doors/multi-nginx
     - docker push doors/multi-server
     - docker push doors/multi-worker
-    
+
