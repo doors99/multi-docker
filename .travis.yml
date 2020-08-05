@@ -24,8 +24,8 @@ after_success:
   #login to docker hub
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #take images and upload to docker hub
-    - docker push doors/multi-client
-    - docker push doors/multi-nginx
-    - docker push doors/multi-server
-    - docker push doors/multi-worker
+    - docker push doors9/multi-client
+    - docker push doors9/multi-nginx
+    - docker push doors9/multi-server
+    - docker push doors9/multi-worker
 
